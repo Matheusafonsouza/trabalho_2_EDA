@@ -40,6 +40,10 @@ Node_disciplina * create_node_disciplica(){
     scanf("%[^\n]",node->nome);
     printf("Digite a menção: ");
     scanf("%s",node->mencao);
+    while(strcmp(node->mencao,"TR")!=0||strcmp(node->mencao,"tr")!=0||strcmp(node->mencao,"sr")!=0||strcmp(node->mencao,"ST")!=0||strcmp(node->mencao,"II")!=0||strcmp(node->mencao,"ii")!=0||strcmp(node->mencao,"MI")!=0||strcmp(node->mencao,"mi")!=0||strcmp(node->mencao,"MM")!=0||strcmp(node->mencao,"mm")!=0||strcmp(node->mencao,"MS")!=0||strcmp(node->mencao,"ms")!=0||strcmp(node->mencao,"ss")!=0||strcmp(node->mencao,"SS")!=0){
+        printf("Menção inválida, digite novamente: ");
+        scanf("%s",node->mencao);   
+    }
     node->next=NULL;
     return node;
 }
