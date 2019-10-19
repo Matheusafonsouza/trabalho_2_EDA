@@ -163,3 +163,76 @@ Node_aluno * at_pos(List_aluno *list, int index){
         index--;
     }while(index!=1);
 }
+
+void filtrar_disciplinas(List_disciplina *list){
+    if(is_empty_disciplina(list)){
+        printf("Lista vazia!\n");
+        return;
+    }
+    Node_disciplina *aux=list->head;
+    printf("TR:\n");
+    while(aux){
+        if(strcmp(aux->mencao,"TR")==0){
+            printf("%s\n",aux->nome);
+        }else{
+
+        }
+        aux=aux->next;
+    }
+    printf("\n");
+    aux=list->head;
+    printf("II:\n");
+    while(aux){
+        if(strcmp(aux->mencao,"II")==0){
+            printf("%s\n",aux->nome);
+        }else{
+
+        }
+        aux=aux->next;
+    }
+    printf("\n");
+    aux=list->head;
+    printf("MI:\n");
+    while(aux){
+        if(strcmp(aux->mencao,"MI")==0){
+            printf("%s\n",aux->nome);
+        }else{
+
+        }
+        aux=aux->next;
+    }
+    printf("\n");
+    aux=list->head;
+    printf("MM:\n");
+    while(aux){
+        if(strcmp(aux->mencao,"MM")==0){
+            printf("%s\n",aux->nome);
+        }else{
+
+        }
+        aux=aux->next;
+    }
+    printf("\n");
+    aux=list->head;
+    printf("MS:\n");
+    while(aux){
+        if(strcmp(aux->mencao,"MS")==0){
+            printf("%s\n",aux->nome);
+        }else{
+
+        }
+        aux=aux->next;
+    }
+    printf("\n");
+    aux=list->head;
+    printf("SS:\n");
+    while(aux){
+        if(strcmp(aux->mencao,"SS")==0){
+            printf("%s\n",aux->nome);
+        }else{
+
+        }
+        aux=aux->next;
+    }
+    printf("\n");
+}

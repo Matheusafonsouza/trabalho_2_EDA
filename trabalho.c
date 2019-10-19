@@ -45,6 +45,10 @@ void menu_aluno(Node_aluno *node_aluno){
             case 4:
                 break;
             case 5:
+                filtrar_disciplinas(list_disciplina);
+                getchar();
+                printf("Aperte enter para continuar.");
+                scanf("%c",&continuar);
                 break;
             case 6:
                 break;
