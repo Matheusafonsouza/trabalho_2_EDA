@@ -8,7 +8,12 @@ void menu_aluno(Node_aluno *node_aluno){
     int opcao;
     char continuar;
     Node_disciplina *node_disciplina;
-    List_disciplina *list_disciplina=node_aluno->head;
+    List_disciplina *list_disciplina;
+    if(node_aluno->head==NULL){
+        list_disciplina=create_list_disciplina();
+    }else{
+        list_disciplina=node_aluno->head;
+    }
     do{
         system("clear");
         printf("1. Cadastrar disciplina.\n");
@@ -23,8 +28,8 @@ void menu_aluno(Node_aluno *node_aluno){
         switch(opcao){
             case 1:
                 node_disciplina=create_node_disciplica();
-                push_disciplina(list_disciplina,node_disciplina);
                 printf("Disciplina adicionada!\n");
+                push_disciplina(list_disciplina,node_disciplina);
                 getchar();
                 printf("Aperte enter para continuar.");
                 scanf("%c",&continuar);
@@ -93,7 +98,7 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
             printf("2. Email.\n");
             printf("3. Índice.\n");
             scanf("%d",&opcao);
-            if(opcao!=1||opcao!=2||opcao!=3){
+            if(opcao!=1&&opcao!=2&&opcao!=3){
                 printf("Opção inválida! Aperte enter para voltar ao menu de escolha.\n");
                 getchar();
                 scanf("%c",&continuar);
@@ -111,7 +116,10 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
                 printf("Digite o índice: ");
                 scanf("%d",&indice);
                 node_aluno=at_pos(list_aluno,indice);
-                menu_aluno(node_aluno);
+                if(node_aluno==NULL){
+                }else{
+                    menu_aluno(node_aluno);
+                }
                 break;
         }
 
