@@ -88,6 +88,15 @@ void push_aluno(List_aluno *list,Node_aluno *node){
     }
 }
 
+void push_disciplina(List_disciplina *list,Node_disciplina *node){
+    if(node){
+        node->next=list->head;
+        list->head=node;
+        list->size++;
+        return;
+    }
+}
+
 void print_alunos(List_aluno *list){
     if(is_empty_aluno(list)){
         printf("Lista vazia!\n");
@@ -137,4 +146,23 @@ void pop_disciplina(List_disciplina *list){
     list->head=node->next;
     free(node);
     list->size--;
+}
+
+Node_aluno * at_pos(List_aluno *list, int index){
+    if(is_empty_aluno(list)){
+        printf("Lista Vazia!\n");
+        return;
+    }
+    if(index>list->size||index<=0){
+        printf("Índice inválido.\n");
+        return;
+    }
+    Node_aluno *aux=list->head;
+    do{
+        if(index==1){
+            return aux;
+        }
+        aux=aux->next;
+        index--;
+    }while(index!=1);
 }
