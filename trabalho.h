@@ -10,7 +10,7 @@ typedef struct node_disciplina{
 
 typedef struct list_disciplina{
     int size;
-    node_disciplina *head;
+    Node_disciplina *head;
 }List_disciplina;
 
 typedef struct node_aluno{
@@ -63,5 +63,68 @@ Node_aluno * create_node_aluno(){
     printf("Digite o email do aluno: ");
     scanf("%s",node->email);
     node->next=NULL;
+    node->head=NULL;
     return node;
+}
+
+bool is_empty(List_disciplina *list){
+    return list->size==0;
+}
+bool is_empty(List_aluno *list){
+    return list->size==0;
+}
+
+void push_aluno(List_aluno *list,Node_aluno *node){
+    if(node){
+        node->next=list->head;
+        list->head=node;
+        list->size++;
+        return;
+    }
+}
+
+void print_alunos(List_aluno *list){
+    if(is_empty(list)){
+        printf("Lista vazia!\n");
+        return;
+    }
+    Node_aluno *node=list->head;
+    while(node){
+        printf("Nome: %s.\nEmail: %s.\nMatrícula: %s.\n",node->nome,node->email,node->matricula);
+        printf("\n-------------------------------------------------------------------------------\n\n");
+        node=node->next;
+    }
+}
+
+void print_disciplinas(List_disciplina *list){
+    if(is_empty(list)){
+        printf("Lista vazia!\n");
+        return;
+    }
+    Node_disciplina *node=list->head;
+    while(node){
+        printf("Nome: %s.\nMenção: %s.\n",node->nome,node->mencao);
+        printf("\n-------------------------------------------------------------------------------\n\n");
+        node=node->next;
+    }
+}
+
+void pop_aluno(List_aluno *list){
+    if(is_empty(list)){
+        return;
+    }
+    Node_aluno *node=list->head;
+    list->head=node->next;
+    free(node);
+    list->size--;
+}
+
+void pop_disciplina(List_disciplina *list){
+    if(is_empty(list)){
+        return;
+    }
+    Node_disciplina *node=list->head;
+    list->head=node->next;
+    free(node);
+    list->size--;
 }
