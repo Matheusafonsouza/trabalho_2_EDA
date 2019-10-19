@@ -27,12 +27,14 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
         getchar();
         printf("Aperte enter para continuar.");
         scanf("%c",&continuar);
+        menu(list_aluno,node_aluno);
         break;
     case 2:
         print_alunos(list_aluno);
         getchar();
         printf("Aperte enter para continuar.");
         scanf("%c",&continuar);
+        menu(list_aluno,node_aluno);
         break;
     case 3:
         break;

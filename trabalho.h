@@ -56,6 +56,7 @@ Node_aluno * create_node_aluno(){
     node->email=(char*)malloc(sizeof(char)*40);
     node->matricula=(char*)malloc(sizeof(char)*40);
     node->nome=(char*)malloc(sizeof(char)*40);
+    getchar();
     printf("Digite o nome do aluno: ");
     scanf("%[^\n]",node->nome);
     printf("Digite a matrícula do aluno: ");
@@ -67,10 +68,10 @@ Node_aluno * create_node_aluno(){
     return node;
 }
 
-bool is_empty(List_disciplina *list){
+bool is_empty_disciplina(List_disciplina *list){
     return list->size==0;
 }
-bool is_empty(List_aluno *list){
+bool is_empty_aluno(List_aluno *list){
     return list->size==0;
 }
 
@@ -84,20 +85,25 @@ void push_aluno(List_aluno *list,Node_aluno *node){
 }
 
 void print_alunos(List_aluno *list){
-    if(is_empty(list)){
+    if(is_empty_aluno(list)){
         printf("Lista vazia!\n");
         return;
     }
     Node_aluno *node=list->head;
     while(node){
         printf("Nome: %s.\nEmail: %s.\nMatrícula: %s.\n",node->nome,node->email,node->matricula);
+        if(node->head==NULL){
+            printf("Aluno sem disciplina.\n");
+        }else{
+            printf("Histórico: %d disciplinas.",node->head->size);
+        }
         printf("\n-------------------------------------------------------------------------------\n\n");
         node=node->next;
     }
 }
 
 void print_disciplinas(List_disciplina *list){
-    if(is_empty(list)){
+    if(is_empty_disciplina(list)){
         printf("Lista vazia!\n");
         return;
     }
@@ -110,7 +116,7 @@ void print_disciplinas(List_disciplina *list){
 }
 
 void pop_aluno(List_aluno *list){
-    if(is_empty(list)){
+    if(is_empty_aluno(list)){
         return;
     }
     Node_aluno *node=list->head;
@@ -120,7 +126,7 @@ void pop_aluno(List_aluno *list){
 }
 
 void pop_disciplina(List_disciplina *list){
-    if(is_empty(list)){
+    if(is_empty_disciplina(list)){
         return;
     }
     Node_disciplina *node=list->head;
