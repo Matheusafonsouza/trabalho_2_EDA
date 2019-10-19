@@ -6,6 +6,7 @@
 
 void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
     int opcao;
+    char continuar;
     
 
     system("clear");
@@ -17,11 +18,21 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
     printf("6. Fechar programa.\n");
     scanf("%d",&opcao);
 
+    system("clear");
     switch(opcao){
     case 1:
         node_aluno=create_node_aluno();
+        push_aluno(list_aluno,node_aluno);
+        printf("Aluno adicionado!\n");
+        getchar();
+        printf("Aperte enter para continuar.");
+        scanf("%c",&continuar);
         break;
     case 2:
+        print_alunos(list_aluno);
+        getchar();
+        printf("Aperte enter para continuar.");
+        scanf("%c",&continuar);
         break;
     case 3:
         break;
