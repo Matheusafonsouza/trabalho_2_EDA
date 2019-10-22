@@ -96,12 +96,15 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
         break;
     case 3:
 
+        
         do{
+            system("clear");
             printf("Você vai buscar o aluno por:\n");
             printf("1. Nome.\n");
             printf("2. Email.\n");
             printf("3. Índice.\n");
             scanf("%d",&opcao);
+
             if(opcao!=1&&opcao!=2&&opcao!=3){
                 printf("Opção inválida! Aperte enter para voltar ao menu de escolha.\n");
                 getchar();

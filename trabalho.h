@@ -236,3 +236,41 @@ void filtrar_disciplinas(List_disciplina *list){
     }
     printf("\n");
 }
+
+Node_aluno * search_by_name(List_aluno *list,char *procura){
+    if(is_empty_aluno(list)){
+        printf("Lista vazia!\n");
+        return NULL;
+    }
+    Node_aluno *aux=list->head;
+    char *search;
+    int contador=0,i=0,op;
+    while(aux){
+        search=strstr(aux->nome,procura);
+        if(search==NULL){
+        }else{
+            contador++;
+        }
+    }
+    Node_aluno **list_nomes=(Node_aluno**)malloc(sizeof(Node_aluno*)*contador);
+    aux=list->head;
+    while(aux){
+        search=strstr(aux->nome,procura);
+        if(search==NULL){
+        }else{
+            list_nomes[i]=aux;
+            i++;
+        }
+    }
+    if(i==1){
+        return list_nomes[0];
+    }else{
+        printf("Alunos encontrados:\n");
+        for(i=0;i<contador;i++){
+            printf("%d. %s.\n",i+1,list_nomes[i]->nome);
+        }
+        printf("Escolha o número do aluno: ");
+        scanf("%d",&op);
+        return list_nomes[op-1];
+    }
+}
