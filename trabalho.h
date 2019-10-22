@@ -251,6 +251,7 @@ Node_aluno * search_by_name(List_aluno *list,char *procura){
         }else{
             contador++;
         }
+        aux=aux->next;
     }
     Node_aluno **list_nomes=(Node_aluno**)malloc(sizeof(Node_aluno*)*contador);
     aux=list->head;
@@ -261,6 +262,7 @@ Node_aluno * search_by_name(List_aluno *list,char *procura){
             list_nomes[i]=aux;
             i++;
         }
+        aux=aux->next;
     }
     if(i==1){
         return list_nomes[0];

@@ -116,6 +116,14 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
 
         switch(opcao){
             case 1:
+                printf("Digite o nome do aluno: ");
+                getchar();
+                scanf("%[^\n]",procura);
+                node_aluno=search_by_name(list_aluno,procura);
+                if(node_aluno==NULL){
+                }else{
+                    menu_aluno(node_aluno);
+                }
                 break;
             case 2:
                 break;
