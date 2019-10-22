@@ -276,3 +276,43 @@ Node_aluno * search_by_name(List_aluno *list,char *procura){
         return list_nomes[op-1];
     }
 }
+
+Node_aluno * search_by_email(List_aluno *list,char *procura){
+    if(is_empty_aluno(list)){
+        printf("Lista vazia!\n");
+        return NULL;
+    }
+    Node_aluno *aux=list->head;
+    char *search;
+    int contador=0,i=0,op;
+    while(aux){
+        search=strstr(aux->email,procura);
+        if(search==NULL){
+        }else{
+            contador++;
+        }
+        aux=aux->next;
+    }
+    Node_aluno **list_emails=(Node_aluno**)malloc(sizeof(Node_aluno*)*contador);
+    aux=list->head;
+    while(aux){
+        search=strstr(aux->email,procura);
+        if(search==NULL){
+        }else{
+            list_emails[i]=aux;
+            i++;
+        }
+        aux=aux->next;
+    }
+    if(i==1){
+        return list_emails[0];
+    }else{
+        printf("Alunos encontrados:\n");
+        for(i=0;i<contador;i++){
+            printf("%d. %s.\n",i+1,list_emails[i]->nome);
+        }
+        printf("Escolha o número do aluno: ");
+        scanf("%d",&op);
+        return list_emails[op-1];
+    }
+}

@@ -126,6 +126,14 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
                 }
                 break;
             case 2:
+                printf("Digite o email do aluno: ");
+                getchar();
+                scanf("%[^\n]",procura);
+                node_aluno=search_by_email(list_aluno,procura);
+                if(node_aluno==NULL){
+                }else{
+                    menu_aluno(node_aluno);
+                }
                 break;
             case 3:
                 printf("Digite o índice: ");
