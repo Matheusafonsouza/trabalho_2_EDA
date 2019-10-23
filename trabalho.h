@@ -69,6 +69,18 @@ Node_aluno * create_node_aluno(){
     return node;
 }
 
+void edit_aluno(Node_aluno *node){
+    if(node){
+        getchar();
+        printf("Digite o novo nome do aluno: ");
+        scanf("%[^\n]",node->nome);
+        printf("Digite a nova matrícula do aluno: ");
+        scanf("%s",node->matricula);
+        printf("Digite o novo email do aluno: ");
+        scanf("%s",node->email);
+    }
+}
+
 bool is_empty_disciplina(List_disciplina *list){
     return list->size==0;
 }
