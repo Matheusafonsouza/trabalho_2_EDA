@@ -328,3 +328,30 @@ Node_aluno * search_by_email(List_aluno *list,char *procura){
         return list_emails[op-1];
     }
 }
+
+void erase_aluno(List_aluno *list,Node_aluno *node){
+    if(is_empty_aluno(list)){
+        printf("Lista vazia!\n");
+        return;
+    }
+    if(node){
+        if(list->size==1){
+            pop_aluno(list);
+            list->size--;
+            return;
+        }
+        if(list->head->matricula==node->matricula){
+            pop_aluno(list);
+            list->size--;
+            return;
+        }
+        Node_aluno *aux=list->head;
+        while(aux){
+            if(aux->next->matricula==node->matricula){
+                aux->next=aux->next->next;
+                break;
+            }
+        }
+        free(aux);
+    }
+}

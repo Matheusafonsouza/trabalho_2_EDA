@@ -204,6 +204,58 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
         menu(list_aluno,node_aluno);
         break;
     case 5:
+        do{
+            system("clear");
+            printf("Você vai buscar o aluno por:\n");
+            printf("1. Nome.\n");
+            printf("2. Email.\n");
+            printf("3. Índice.\n");
+            scanf("%d",&opcao);
+
+            if(opcao!=1&&opcao!=2&&opcao!=3){
+                printf("Opção inválida! Aperte enter para voltar ao menu de escolha.\n");
+                getchar();
+                scanf("%c",&continuar);
+            }else{
+                break;
+            }
+        }while(opcao!=1||opcao!=2||opcao!=3);
+
+        switch(opcao){
+            case 1:
+                printf("Digite o nome do aluno: ");
+                getchar();
+                scanf("%[^\n]",procura);
+                node_aluno=search_by_name(list_aluno,procura);
+                if(node_aluno==NULL){
+                }else{
+                    erase_aluno(list_aluno,node_aluno);
+                }
+                break;
+            case 2:
+                printf("Digite o email do aluno: ");
+                getchar();
+                scanf("%[^\n]",procura);
+                node_aluno=search_by_email(list_aluno,procura);
+                if(node_aluno==NULL){
+                }else{
+                    erase_aluno(list_aluno,node_aluno);
+                }
+                break;
+            case 3:
+                printf("Digite o índice: ");
+                scanf("%d",&indice);
+                node_aluno=at_pos(list_aluno,indice);
+                if(node_aluno==NULL){
+                }else{
+                    erase_aluno(list_aluno,node_aluno);
+                }
+                break;
+        }
+        getchar();
+        printf("Aperte enter para continuar.");
+        scanf("%c",&continuar);
+        menu(list_aluno,node_aluno);
         break;
     case 6:
         break;
