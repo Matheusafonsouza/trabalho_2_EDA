@@ -450,3 +450,34 @@ Node_disciplina * search_disciplina(List_disciplina *list,char *procura){
         return list_nomes[op-1];
     }
 }
+
+void relatorio_geral(List_disciplina* list){
+    Node_disciplina *node=list->head;
+    int tr=0,ii=0,mi=0,mm=0,ms=0,ss=0;
+
+    while(node){
+        if(strcmp(node->mencao,"TR")){
+            tr++;
+        }
+        if(strcmp(node->mencao,"TR")){
+            ii++;
+        }
+        if(strcmp(node->mencao,"TR")){
+            mi++;
+        }
+        if(strcmp(node->mencao,"TR")){
+            mm++;
+        }
+        if(strcmp(node->mencao,"TR")){
+            ms++;
+        }
+        if(strcmp(node->mencao,"TR")){
+            ss++;
+        }
+    }
+
+    printf("Numero de disciplinas cursadas: %d.",list->size);
+    printf("Numero de aprovações: %d.",mm+ms+ss);
+    printf("Numero de reprovações: %d.",ii+mi);
+    printf("Numero de disciplinas trancadas: %d.",tr);
+}

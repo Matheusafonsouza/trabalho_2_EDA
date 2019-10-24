@@ -67,6 +67,7 @@ void menu_aluno(Node_aluno *node_aluno){
                 scanf("%c",&continuar);
                 break;
             case 6:
+                relatorio_geral(list_disciplina);
                 break;
             case 7:
                 break;
