@@ -6,7 +6,7 @@
 
 void menu_aluno(Node_aluno *node_aluno){
     int opcao;
-    char continuar;
+    char continuar, *procura;
     Node_disciplina *node_disciplina;
     List_disciplina *list_disciplina;
     if(node_aluno->head==NULL){
@@ -41,8 +41,24 @@ void menu_aluno(Node_aluno *node_aluno){
                 scanf("%c",&continuar);
                 break;
             case 3:
+                printf("Digite o nome da disciplina: ");
+                getchar();
+                scanf("%[^\n]",procura);
+                node_disciplina=search_disciplina(list_disciplina,procura);
+                if(node_disciplina==NULL){
+                }else{
+                    edit_disciplina(node_disciplina);
+                }
                 break;
             case 4:
+                printf("Digite o nome da disciplina: ");
+                getchar();
+                scanf("%[^\n]",procura);
+                node_disciplina=search_disciplina(list_disciplina,procura);
+                if(node_disciplina==NULL){
+                }else{
+                    erase_disciplina(list_disciplina,node_disciplina);
+                }
                 break;
             case 5:
                 filtrar_disciplinas(list_disciplina);

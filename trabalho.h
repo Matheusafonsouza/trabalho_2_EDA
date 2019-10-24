@@ -81,6 +81,16 @@ void edit_aluno(Node_aluno *node){
     }
 }
 
+void edit_disciplina(Node_disciplina *node){
+    if(node){
+        getchar();
+        printf("Digite o nome da disciplina: ");
+        scanf("%[^\n]",node->nome);
+        printf("Digite a menção: ");
+        scanf("%s",node->mencao);
+    }
+}
+
 bool is_empty_disciplina(List_disciplina *list){
     return list->size==0;
 }
@@ -363,7 +373,80 @@ void erase_aluno(List_aluno *list,Node_aluno *node){
             aux=aux->next;
         }
         
-        print_alunos(list);
         free(aux);
+    }
+}
+
+void erase_disciplina(List_disciplina *list,Node_disciplina *node){
+    if(is_empty_disciplina(list)){
+        printf("Lista vazia!\n");
+        return;
+    }
+    if(node){
+        if(list->size==1){
+            pop_disciplina(list);
+            return;
+        }
+        if(list->head->nome==node->nome){
+            pop_disciplina(list);
+            return;
+        }
+        Node_disciplina *aux=list->head,*aux2;
+        while(aux){
+            if(aux->next->nome==node->nome){
+                aux2=aux;
+                aux=aux->next;
+                aux2->next=aux->next;
+                list->size--;
+                break;
+            }
+            aux=aux->next;
+        }
+        
+        free(aux);
+    }
+}
+
+Node_disciplina * search_disciplina(List_disciplina *list,char *procura){
+    if(is_empty_disciplina(list)){
+        printf("Lista vazia!\n");
+        return NULL;
+    }
+    Node_disciplina *aux=list->head;
+    char *search;
+    int contador=0,i=0,op;
+    while(aux){
+        search=strstr(aux->nome,procura);
+        if(search==NULL){
+        }else{
+            contador++;
+        }
+        aux=aux->next;
+    }
+    Node_disciplina **list_nomes=(Node_disciplina**)malloc(sizeof(Node_disciplina*)*contador);
+    aux=list->head;
+    while(aux){
+        search=strstr(aux->nome,procura);
+        if(search==NULL){
+        }else{
+            list_nomes[i]=aux;
+            i++;
+        }
+        aux=aux->next;
+    }
+    if(contador==0){
+        printf("Não existe esse aluno!\n");
+        return NULL;
+    }
+    if(i==1){
+        return list_nomes[0];
+    }else{
+        printf("Alunos encontrados:\n");
+        for(i=0;i<contador;i++){
+            printf("%d. %s.\n",i+1,list_nomes[i]->nome);
+        }
+        printf("Escolha o número do aluno: ");
+        scanf("%d",&op);
+        return list_nomes[op-1];
     }
 }
