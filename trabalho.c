@@ -159,7 +159,7 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
             scanf("%d",&opcao);
 
             if(opcao!=1&&opcao!=2&&opcao!=3){
-                printf("Opção inválida! Aperte enter para voltar ao menu de escolha.\n");
+                printf("Opção inválida! Aperte enter para escolher novamente.\n");
                 getchar();
                 scanf("%c",&continuar);
             }else{

@@ -345,12 +345,10 @@ void erase_aluno(List_aluno *list,Node_aluno *node){
     if(node){
         if(list->size==1){
             pop_aluno(list);
-            list->size--;
             return;
         }
         if(list->head->matricula==node->matricula){
             pop_aluno(list);
-            list->size--;
             return;
         }
         Node_aluno *aux=list->head,*aux2;
@@ -364,7 +362,8 @@ void erase_aluno(List_aluno *list,Node_aluno *node){
             }
             aux=aux->next;
         }
+        
+        print_alunos(list);
         free(aux);
-        free(aux2);
     }
 }
