@@ -276,6 +276,10 @@ Node_aluno * search_by_name(List_aluno *list,char *procura){
         }
         aux=aux->next;
     }
+    if(contador==0){
+        printf("Não existe esse aluno!\n");
+        return NULL;
+    }
     if(i==1){
         return list_nomes[0];
     }else{
@@ -316,6 +320,10 @@ Node_aluno * search_by_email(List_aluno *list,char *procura){
         }
         aux=aux->next;
     }
+    if(contador==0){
+        printf("Não existe esse aluno!\n");
+        return NULL;
+    }
     if(i==1){
         return list_emails[0];
     }else{
@@ -345,13 +353,18 @@ void erase_aluno(List_aluno *list,Node_aluno *node){
             list->size--;
             return;
         }
-        Node_aluno *aux=list->head;
+        Node_aluno *aux=list->head,*aux2;
         while(aux){
             if(aux->next->matricula==node->matricula){
-                aux->next=aux->next->next;
+                aux2=aux;
+                aux=aux->next;
+                aux2->next=aux->next;
+                list->size--;
                 break;
             }
+            aux=aux->next;
         }
         free(aux);
+        free(aux2);
     }
 }
