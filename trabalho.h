@@ -290,9 +290,7 @@ Node_aluno * search_by_name(List_aluno *list,char *procura){
         printf("Não existe esse aluno!\n");
         return NULL;
     }
-    if(i==1){
-        return list_nomes[0];
-    }else{
+    else{
         printf("Alunos encontrados:\n");
         for(i=0;i<contador;i++){
             printf("%d. %s.\n",i+1,list_nomes[i]->nome);
@@ -334,9 +332,7 @@ Node_aluno * search_by_email(List_aluno *list,char *procura){
         printf("Não existe esse aluno!\n");
         return NULL;
     }
-    if(i==1){
-        return list_emails[0];
-    }else{
+    else{
         printf("Alunos encontrados:\n");
         for(i=0;i<contador;i++){
             printf("%d. %s.\n",i+1,list_emails[i]->nome);
@@ -438,9 +434,7 @@ Node_disciplina * search_disciplina(List_disciplina *list,char *procura){
         printf("Não existe esse aluno!\n");
         return NULL;
     }
-    if(i==1){
-        return list_nomes[0];
-    }else{
+    else{
         printf("Alunos encontrados:\n");
         for(i=0;i<contador;i++){
             printf("%d. %s.\n",i+1,list_nomes[i]->nome);
