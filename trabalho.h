@@ -3,28 +3,33 @@
 #include <string.h>
 #include <stdbool.h>
 
+
+//Struct node para disciplina.
 typedef struct node_disciplina{
     char *nome,*mencao;
     struct node_disciplina *next;
 }Node_disciplina;
 
+//Struct lista para disciplina.
 typedef struct list_disciplina{
     int size;
     Node_disciplina *head;
 }List_disciplina;
 
+//Struct node para aluno.
 typedef struct node_aluno{
     char *nome,*email,*matricula;
     List_disciplina *head;
     struct node_aluno *next;
 }Node_aluno;
 
+//Struct lista para aluno.
 typedef struct list_aluno{
     int size;
     Node_aluno *head;
 }List_aluno;
 
-//Cria estruturas
+//Cria Lista de disciplinas vazia.
 List_disciplina * create_list_disciplina(){
     List_disciplina *list=(List_disciplina*)malloc(sizeof(List_disciplina));
     list->head=NULL;
@@ -32,6 +37,7 @@ List_disciplina * create_list_disciplina(){
     return list;
 }
 
+//Cria node disciplina, registra nome e menção.
 Node_disciplina * create_node_disciplica(){
     Node_disciplina *node=(Node_disciplina*)malloc(sizeof(Node_disciplina));
     node->mencao=(char*)malloc(sizeof(char)*2);
@@ -39,12 +45,16 @@ Node_disciplina * create_node_disciplica(){
     getchar();
     printf("Digite o nome da disciplina: ");
     scanf("%[^\n]",node->nome);
-    printf("Digite a menção: ");
-    scanf("%s",node->mencao);
+    
+    do{
+        printf("Digite a menção: ");
+        scanf("%s",node->mencao);
+    }while(strcmp(node->mencao,"TR")!=0&&strcmp(node->mencao,"II")!=0&&strcmp(node->mencao,"MI")!=0&&strcmp(node->mencao,"MM")!=0&&strcmp(node->mencao,"MS")!=0&&strcmp(node->mencao,"SS")!=0);
     node->next=NULL;
     return node;
 }
 
+//Cria lista de alunos vazia.
 List_aluno * create_list_aluno(){
     List_aluno *list=(List_aluno*)malloc(sizeof(List_aluno));
     list->head=NULL;
@@ -52,6 +62,7 @@ List_aluno * create_list_aluno(){
     return list;
 }
 
+//Cria node aluno, registra email, nome e matricula.
 Node_aluno * create_node_aluno(){
     Node_aluno *node=(Node_aluno*)malloc(sizeof(Node_aluno));
     node->email=(char*)malloc(sizeof(char)*40);
@@ -69,6 +80,7 @@ Node_aluno * create_node_aluno(){
     return node;
 }
 
+//Insere novos nome, matricula e email para um node aluno.
 void edit_aluno(Node_aluno *node){
     if(node){
         getchar();
@@ -80,7 +92,7 @@ void edit_aluno(Node_aluno *node){
         scanf("%s",node->email);
     }
 }
-
+//Insere novos nome e menção para um node disciplina.
 void edit_disciplina(Node_disciplina *node){
     if(node){
         getchar();
@@ -91,13 +103,16 @@ void edit_disciplina(Node_disciplina *node){
     }
 }
 
+//Verifica se a lista de disciplinas está vazia.
 bool is_empty_disciplina(List_disciplina *list){
     return list->size==0;
 }
+//Verifica se a lista de alunos está vazia.
 bool is_empty_aluno(List_aluno *list){
     return list->size==0;
 }
 
+//Insere aluno na primeira posição da lista.
 void push_aluno(List_aluno *list,Node_aluno *node){
     if(node){
         node->next=list->head;
@@ -107,6 +122,7 @@ void push_aluno(List_aluno *list,Node_aluno *node){
     }
 }
 
+//Insere disciplina na primeira posição da lista.
 void push_disciplina(List_disciplina *list,Node_disciplina *node){
     if(node){
         node->next=list->head;
@@ -116,6 +132,8 @@ void push_disciplina(List_disciplina *list,Node_disciplina *node){
     }
 }
 
+
+//Printa lista de alunos.
 void print_alunos(List_aluno *list){
     if(is_empty_aluno(list)){
         printf("Lista vazia!\n");
@@ -124,7 +142,7 @@ void print_alunos(List_aluno *list){
     Node_aluno *node=list->head;
     while(node){
         printf("Nome: %s.\nEmail: %s.\nMatrícula: %s.\n",node->nome,node->email,node->matricula);
-        if(node->head==NULL){
+        if(node->head==NULL||node->head->size==0){
             printf("Aluno sem disciplina.\n");
         }else{
             printf("Histórico: %d disciplinas.",node->head->size);
@@ -134,6 +152,7 @@ void print_alunos(List_aluno *list){
     }
 }
 
+//Printa lista de disciplinas.
 void print_disciplinas(List_disciplina *list){
     if(is_empty_disciplina(list)){
         printf("Lista vazia!\n");
@@ -147,8 +166,10 @@ void print_disciplinas(List_disciplina *list){
     }
 }
 
+//Exclui primeira posição da lista de alunos.
 void pop_aluno(List_aluno *list){
     if(is_empty_aluno(list)){
+        printf("Lista vazia!\n");
         return;
     }
     Node_aluno *node=list->head;
@@ -157,8 +178,10 @@ void pop_aluno(List_aluno *list){
     list->size--;
 }
 
+//Exclui primeira posição da lista de disciplinas.
 void pop_disciplina(List_disciplina *list){
     if(is_empty_disciplina(list)){
+        printf("Lista vazia!\n");
         return;
     }
     Node_disciplina *node=list->head;
@@ -167,6 +190,7 @@ void pop_disciplina(List_disciplina *list){
     list->size--;
 }
 
+//Retorna nodeda lista de alunos baseado em seu índice.
 Node_aluno * at_pos(List_aluno *list, int index){
     if(is_empty_aluno(list)){
         printf("Lista Vazia!\n");
@@ -186,6 +210,7 @@ Node_aluno * at_pos(List_aluno *list, int index){
     }while(index!=1);
 }
 
+//Filtra disciplinas por menção
 void filtrar_disciplinas(List_disciplina *list){
     if(is_empty_disciplina(list)){
         printf("Lista vazia!\n");
@@ -259,6 +284,7 @@ void filtrar_disciplinas(List_disciplina *list){
     printf("\n");
 }
 
+//Procura aluno baseado em seu nome.
 Node_aluno * search_by_name(List_aluno *list,char *procura){
     if(is_empty_aluno(list)){
         printf("Lista vazia!\n");
@@ -301,6 +327,7 @@ Node_aluno * search_by_name(List_aluno *list,char *procura){
     }
 }
 
+//O=Procura aluno baseado em seu nome.
 Node_aluno * search_by_email(List_aluno *list,char *procura){
     if(is_empty_aluno(list)){
         printf("Lista vazia!\n");
@@ -343,6 +370,7 @@ Node_aluno * search_by_email(List_aluno *list,char *procura){
     }
 }
 
+//Deleta aluno.
 void erase_aluno(List_aluno *list,Node_aluno *node){
     if(is_empty_aluno(list)){
         printf("Lista vazia!\n");
@@ -373,6 +401,7 @@ void erase_aluno(List_aluno *list,Node_aluno *node){
     }
 }
 
+//Deleta disciplina.
 void erase_disciplina(List_disciplina *list,Node_disciplina *node){
     if(is_empty_disciplina(list)){
         printf("Lista vazia!\n");
@@ -403,6 +432,7 @@ void erase_disciplina(List_disciplina *list,Node_disciplina *node){
     }
 }
 
+//Procura disciplina baseado em seu nome.
 Node_disciplina * search_disciplina(List_disciplina *list,char *procura){
     if(is_empty_disciplina(list)){
         printf("Lista vazia!\n");
@@ -431,47 +461,49 @@ Node_disciplina * search_disciplina(List_disciplina *list,char *procura){
         aux=aux->next;
     }
     if(contador==0){
-        printf("Não existe esse aluno!\n");
+        printf("Não existe essa Disciplina!\n");
         return NULL;
     }
     else{
-        printf("Alunos encontrados:\n");
+        printf("Disciplinas encontrados:\n");
         for(i=0;i<contador;i++){
             printf("%d. %s.\n",i+1,list_nomes[i]->nome);
         }
-        printf("Escolha o número do aluno: ");
+        printf("Escolha o número da disciplina: ");
         scanf("%d",&op);
         return list_nomes[op-1];
     }
 }
 
+//Emite relatório geral do aluno.
 void relatorio_geral(List_disciplina* list){
     Node_disciplina *node=list->head;
     int tr=0,ii=0,mi=0,mm=0,ms=0,ss=0;
 
     while(node){
-        if(strcmp(node->mencao,"TR")){
+        if(strcmp(node->mencao,"TR")==0){
             tr++;
         }
-        if(strcmp(node->mencao,"TR")){
+        if(strcmp(node->mencao,"II")==0){
             ii++;
         }
-        if(strcmp(node->mencao,"TR")){
+        if(strcmp(node->mencao,"MI")==0){
             mi++;
         }
-        if(strcmp(node->mencao,"TR")){
+        if(strcmp(node->mencao,"MM")==0){
             mm++;
         }
-        if(strcmp(node->mencao,"TR")){
+        if(strcmp(node->mencao,"MS")==0){
             ms++;
         }
-        if(strcmp(node->mencao,"TR")){
+        if(strcmp(node->mencao,"SS")==0){
             ss++;
         }
+        node=node->next;
     }
 
-    printf("Numero de disciplinas cursadas: %d.",list->size);
-    printf("Numero de aprovações: %d.",mm+ms+ss);
-    printf("Numero de reprovações: %d.",ii+mi);
-    printf("Numero de disciplinas trancadas: %d.",tr);
+    printf("Numero de disciplinas cursadas: %d.\n",list->size);
+    printf("Numero de aprovações: %d.\n",mm+ms+ss);
+    printf("Numero de reprovações: %d.\n",ii+mi);
+    printf("Numero de disciplinas trancadas: %d.\n",tr);
 }
