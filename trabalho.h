@@ -39,6 +39,7 @@ List_disciplina * create_list_disciplina(){
 
 //Cria node disciplina, registra nome e menção.
 Node_disciplina * create_node_disciplica(){
+    char continuar;
     Node_disciplina *node=(Node_disciplina*)malloc(sizeof(Node_disciplina));
     node->mencao=(char*)malloc(sizeof(char)*2);
     node->nome=(char*)malloc(sizeof(char)*40);
@@ -49,6 +50,16 @@ Node_disciplina * create_node_disciplica(){
     do{
         printf("Digite a menção: ");
         scanf("%s",node->mencao);
+
+        if(strcmp(node->mencao,"TR")!=0&&strcmp(node->mencao,"II")!=0&&strcmp(node->mencao,"MI")!=0&&strcmp(node->mencao,"MM")!=0&&strcmp(node->mencao,"MS")!=0&&strcmp(node->mencao,"SS")!=0){
+            printf("Menção inválida! Aperte entender para digitar novamente.\n");
+            getchar();
+            scanf("%c",&continuar);
+        }
+        else{
+            break;
+        }
+
     }while(strcmp(node->mencao,"TR")!=0&&strcmp(node->mencao,"II")!=0&&strcmp(node->mencao,"MI")!=0&&strcmp(node->mencao,"MM")!=0&&strcmp(node->mencao,"MS")!=0&&strcmp(node->mencao,"SS")!=0);
     node->next=NULL;
     return node;
