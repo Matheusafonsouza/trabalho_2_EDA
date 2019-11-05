@@ -120,12 +120,14 @@ void menu_aluno(Node_aluno *node_aluno){
     }while(opcao!=7);
 }
 
+//menu principal
 void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
     int indice,opcao;
     char continuar;
     char *procura=(char*)malloc(sizeof(char)*40);
     
 
+    //printar menu e seleção de opção
     system("clear");
     printf("1. Cadastrar aluno.\n");
     printf("2. Listar alunos.\n");
@@ -135,34 +137,47 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
     printf("6. Fechar programa.\n");
     scanf("%d",&opcao);
 
+    //switch para opções
     system("clear");
     switch(opcao){
+        //Cadastro aluno  
         case 1:
+            //cria node aluno e insere informações
             node_aluno=create_node_aluno(); 
+            //insere node aluno criado na lista de alunos
             push_aluno(list_aluno,node_aluno);
             printf("Aluno adicionado!\n");
             getchar();
             printf("Aperte enter para continuar.");
             scanf("%c",&continuar);
+            //retorna ao menu
             menu(list_aluno,node_aluno);
             break;
+        //printar lista de alunos
         case 2:
+            //printa lista de alunos
             print_alunos(list_aluno);
             getchar();
             printf("Aperte enter para continuar.");
             scanf("%c",&continuar);
+            //retorna ao menu
             menu(list_aluno,node_aluno);
             break;
+        //visualizar menu de disciplinas de determinado aluno
         case 3:
+            //do while para verificação de entrada
             do{
+                //printa entradas
                 system("clear");
                 printf("Você vai buscar o aluno por:\n");
                 printf("1. Nome.\n");
                 printf("2. Email.\n");
                 printf("3. Índice.\n");
 
+                //seleciona entrada
                 scanf("%d",&opcao);
 
+                //verifica se a entrada é correta
                 if(opcao!=1&&opcao!=2&&opcao!=3){
                     printf("Opção inválida! Aperte enter para voltar ao menu de escolha.\n");
                     getchar();
@@ -171,52 +186,74 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
                     break;
                 }
             }while(opcao!=1&&opcao!=2&opcao!=3);
-
+           
+            //switch para entradas
             switch(opcao){
+                //busca por nome
                 case 1:
+                    //recebe nome 
                     printf("Digite o nome do aluno: ");
                     getchar();
                     scanf("%[^\n]",procura);
+                    //procura alunos que tenham o nome dado como parte do nome
                     node_aluno=search_by_name(list_aluno,procura);
+                    //caso não tenha, retorna null. Caso tenha, é aberto o menu de disciplinas.
                     if(node_aluno==NULL){
                     }else{
+                        //entrada no menu de disciplinas do aluno.
                         menu_aluno(node_aluno);
                     }
                     break;
+                //busca por email
                 case 2:
+                    //recebe email
                     printf("Digite o email do aluno: ");
                     getchar();
                     scanf("%[^\n]",procura);
+                    //procura alunos que tenham o email dado
                     node_aluno=search_by_email(list_aluno,procura);
+                    //caso não tenha, retorna null. Caso tenha, é aberto o menu de disciplinas.
                     if(node_aluno==NULL){
                     }else{
+                        //entrada no menu de disciplinas do aluno.
                         menu_aluno(node_aluno);
                     }
                     break;
+                //busca por índice
                 case 3:
+                    //recebe indice
                     printf("Digite o índice: ");
                     scanf("%d",&indice);
+                    //busca aluno paseado no indice
                     node_aluno=at_pos(list_aluno,indice);
+                    //caso não tenha, retorna null. Caso tenha, é aberto o menu de disciplinas.
                     if(node_aluno==NULL){
                     }else{
+                        //entrada no menu de disciplinas do aluno.
                         menu_aluno(node_aluno);
                     }
                     break;
             }
 
             getchar();
+            //retorna ao menu
             menu(list_aluno,node_aluno);
             break;
+        //editar aluno
         case 4:
+            //do while para verificação de entrada
             do{
+                //printa entradas
                 system("clear");
                 printf("Você vai buscar o aluno por:\n");
                 printf("1. Nome.\n");
                 printf("2. Email.\n");
                 printf("3. Índice.\n");
                 
+                //seleciona entrada
                 scanf("%d",&opcao);
 
+                //verifica se a entrada é correta
                 if(opcao!=1&&opcao!=2&&opcao!=3){
                     printf("Opção inválida! Aperte enter para escolher novamente.\n");
                     getchar();
@@ -226,33 +263,49 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
                 }
             }while(opcao!=1&&opcao!=2&&opcao!=3);
 
+            //switch para entradas
             switch(opcao){
+                //busca por nome
                 case 1:
+                    //recebe nome
                     printf("Digite o nome do aluno: ");
                     getchar();
                     scanf("%[^\n]",procura);
+                    //procura alunos que tenham o nome dado como parte do nome
                     node_aluno=search_by_name(list_aluno,procura);
+                    //caso não tenha, retorna null. Caso tenha, é redirecionado para edição de aluno.
                     if(node_aluno==NULL){
                     }else{
+                        //entrada para editar aluno.
                         edit_aluno(node_aluno);
                     }
                     break;
+                //busca por email
                 case 2:
+                    //recebe email
                     printf("Digite o email do aluno: ");
                     getchar();
                     scanf("%[^\n]",procura);
+                    //procura alunos que tenham o email.
                     node_aluno=search_by_email(list_aluno,procura);
+                    //caso não tenha, retorna null. Caso tenha, é redirecionado para edição de aluno.
                     if(node_aluno==NULL){
                     }else{
+                        //entrada para editar aluno.
                         edit_aluno(node_aluno);
                     }
                     break;
+                //busca por indice
                 case 3:
+                    //recebe indice
                     printf("Digite o índice: ");
                     scanf("%d",&indice);
+                    //procura aluno do indice indicado.
                     node_aluno=at_pos(list_aluno,indice);
+                    //caso não tenha, retorna null. Caso tenha, é redirecionado para edição de aluno.
                     if(node_aluno==NULL){
                     }else{
+                        //entrada para editar aluno.
                         edit_aluno(node_aluno);
                     }
                     break;
@@ -260,18 +313,24 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
             getchar();
             printf("Aperte enter para continuar.");
             scanf("%c",&continuar);
+            //retorna ao menu principal.
             menu(list_aluno,node_aluno);
             break;
+        //excluir aluno
         case 5:
+            //do while para verificação de entrada
             do{
+                //printa entradas
                 system("clear");
                 printf("Você vai buscar o aluno por:\n");
                 printf("1. Nome.\n");
                 printf("2. Email.\n");
                 printf("3. Índice.\n");
 
+                //seleciona entrada
                 scanf("%d",&opcao);
-
+                
+                //verifica se a entrada é correta
                 if(opcao!=1&&opcao!=2&&opcao!=3){
                     printf("Opção inválida! Aperte enter para voltar ao menu de escolha.\n");
                     getchar();
@@ -281,33 +340,49 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
                 }
             }while(opcao!=1&&opcao!=2&&opcao!=3);
 
+            //switch para entradas
             switch(opcao){
+                //busca por nome
                 case 1:
+                    //recebe nome
                     printf("Digite o nome do aluno: ");
                     getchar();
                     scanf("%[^\n]",procura);
+                    //procura alunos que tenham o nome dado como parte do nome
                     node_aluno=search_by_name(list_aluno,procura);
+                    //caso não tenha, retorna null. Caso tenha, é redirecionado para excluir o aluno.
                     if(node_aluno==NULL){
                     }else{
+                        //exclui aluno
                         erase_aluno(list_aluno,node_aluno);
                     }
                     break;
+                //busca por email
                 case 2:
+                    //recebe email
                     printf("Digite o email do aluno: ");
                     getchar();
                     scanf("%[^\n]",procura);
+                    //procura alunos que tenham o email.
                     node_aluno=search_by_email(list_aluno,procura);
+                    //caso não tenha, retorna null. Caso tenha, é redirecionado para excluir o aluno.
                     if(node_aluno==NULL){
                     }else{
+                        //exclui aluno
                         erase_aluno(list_aluno,node_aluno);
                     }
                     break;
+                //busca por indice
                 case 3:
+                    //recebe email
                     printf("Digite o índice: ");
                     scanf("%d",&indice);
+                    //procura aluno do indice indicado.
                     node_aluno=at_pos(list_aluno,indice);
+                    //caso não tenha, retorna null. Caso tenha, é redirecionado para excluir o aluno.
                     if(node_aluno==NULL){
                     }else{
+                        //exclui aluno.
                         erase_aluno(list_aluno,node_aluno);
                     }
                     break;
@@ -315,10 +390,14 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
             getchar();
             printf("Aperte enter para continuar.");
             scanf("%c",&continuar);
+            //retorna ao menu principal.
             menu(list_aluno,node_aluno);
             break;
+        
+        //finaliza programa.
         case 6:
             break;
+        //caso a entrada sejá uma opção inválida.
         default:
             printf("Opção inválida! Aperte enter para voltar ao menu.\n");
             getchar();
