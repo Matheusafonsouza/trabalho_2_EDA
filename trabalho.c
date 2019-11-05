@@ -11,6 +11,7 @@ void menu_aluno(Node_aluno *node_aluno){
     Node_disciplina *node_disciplina;
     List_disciplina *list_disciplina;
 
+
     //Caso haja uma lista de disciplinas, ela será carregada. Caso não haja ela será criada.
     if(node_aluno->head==NULL){
         list_disciplina=create_list_disciplina();
@@ -109,6 +110,8 @@ void menu_aluno(Node_aluno *node_aluno){
             //retorna para o menu inicial e salva lista de disciplinas
             case 7:
                 node_aluno->head=list_disciplina;
+                free(list_disciplina);
+                free(node_disciplina);
                 break;
             //opções inválidas
             default:
@@ -414,5 +417,7 @@ int main(){
     Node_aluno *node_aluno;
     
     menu(list_aluno,node_aluno);
+    fechar_programa(list_aluno);
+    free(node_aluno);
     return 0;
 }

@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
@@ -51,7 +52,7 @@ Node_disciplina * create_node_disciplica(){
         printf("Digite a menção: ");
         scanf("%s",node->mencao);
 
-        if(strcmp(node->mencao,"TR")!=0&&strcmp(node->mencao,"II")!=0&&strcmp(node->mencao,"MI")!=0&&strcmp(node->mencao,"MM")!=0&&strcmp(node->mencao,"MS")!=0&&strcmp(node->mencao,"SS")!=0){
+        if(strcmp(node->mencao,"TR")!=0&&strcmp(node->mencao,"SR")!=0&&strcmp(node->mencao,"II")!=0&&strcmp(node->mencao,"MI")!=0&&strcmp(node->mencao,"MM")!=0&&strcmp(node->mencao,"MS")!=0&&strcmp(node->mencao,"SS")!=0){
             printf("Menção inválida! Aperte entender para digitar novamente.\n");
             getchar();
             scanf("%c",&continuar);
@@ -60,7 +61,7 @@ Node_disciplina * create_node_disciplica(){
             break;
         }
 
-    }while(strcmp(node->mencao,"TR")!=0&&strcmp(node->mencao,"II")!=0&&strcmp(node->mencao,"MI")!=0&&strcmp(node->mencao,"MM")!=0&&strcmp(node->mencao,"MS")!=0&&strcmp(node->mencao,"SS")!=0);
+    }while(strcmp(node->mencao,"TR")!=0&&strcmp(node->mencao,"SR")!=0&&strcmp(node->mencao,"II")!=0&&strcmp(node->mencao,"MI")!=0&&strcmp(node->mencao,"MM")!=0&&strcmp(node->mencao,"MS")!=0&&strcmp(node->mencao,"SS")!=0);
     node->next=NULL;
     return node;
 }
@@ -177,18 +178,6 @@ void print_disciplinas(List_disciplina *list){
     }
 }
 
-//Exclui primeira posição da lista de alunos.
-void pop_aluno(List_aluno *list){
-    if(is_empty_aluno(list)){
-        printf("Lista vazia!\n");
-        return;
-    }
-    Node_aluno *node=list->head;
-    list->head=node->next;
-    free(node);
-    list->size--;
-}
-
 //Exclui primeira posição da lista de disciplinas.
 void pop_disciplina(List_disciplina *list){
     if(is_empty_disciplina(list)){
@@ -199,6 +188,35 @@ void pop_disciplina(List_disciplina *list){
     list->head=node->next;
     free(node);
     list->size--;
+}
+
+//Exclui primeira posição da lista de alunos.
+void pop_aluno(List_aluno *list){
+    if(is_empty_aluno(list)){
+        printf("Lista vazia!\n");
+        return;
+    }
+    Node_aluno *node=list->head;
+    List_disciplina *lista = node->head;
+    if(lista!=NULL){
+        while(lista->size!=0){
+            pop_disciplina(lista);
+        }
+        free(lista);
+    }
+    list->head=node->next;
+    free(node);
+    list->size--;
+}
+
+void fechar_programa(List_aluno *list){
+    if(is_empty_aluno(list)){
+        return;
+    }
+    while(list->size!=0){
+        pop_aluno(list);
+    }
+    free(list);
 }
 
 //Retorna nodeda lista de alunos baseado em seu índice.
@@ -231,6 +249,17 @@ void filtrar_disciplinas(List_disciplina *list){
     printf("TR:\n");
     while(aux){
         if(strcmp(aux->mencao,"TR")==0){
+            printf("%s\n",aux->nome);
+        }else{
+
+        }
+        aux=aux->next;
+    }
+    printf("\n");
+    aux=list->head;
+    printf("SR:\n");
+    while(aux){
+        if(strcmp(aux->mencao,"SR")==0){
             printf("%s\n",aux->nome);
         }else{
 
@@ -489,11 +518,14 @@ Node_disciplina * search_disciplina(List_disciplina *list,char *procura){
 //Emite relatório geral do aluno.
 void relatorio_geral(List_disciplina* list){
     Node_disciplina *node=list->head;
-    int tr=0,ii=0,mi=0,mm=0,ms=0,ss=0;
+    int tr=0,ii=0,mi=0,mm=0,ms=0,ss=0,sr=0;
 
     while(node){
         if(strcmp(node->mencao,"TR")==0){
             tr++;
+        }
+        if(strcmp(node->mencao,"SR")==0){
+            sr++;
         }
         if(strcmp(node->mencao,"II")==0){
             ii++;
@@ -515,6 +547,6 @@ void relatorio_geral(List_disciplina* list){
 
     printf("Numero de disciplinas cursadas: %d.\n",list->size);
     printf("Numero de aprovações: %d.\n",mm+ms+ss);
-    printf("Numero de reprovações: %d.\n",ii+mi);
+    printf("Numero de reprovações: %d.\n",ii+mi+sr);
     printf("Numero de disciplinas trancadas: %d.\n",tr);
 }
