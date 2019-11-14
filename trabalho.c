@@ -110,8 +110,6 @@ void menu_aluno(Node_aluno *node_aluno){
             //retorna para o menu inicial e salva lista de disciplinas
             case 7:
                 node_aluno->head=list_disciplina;
-                free(list_disciplina);
-                free(node_disciplina);
                 break;
             //opções inválidas
             default:
@@ -413,10 +411,14 @@ void menu(List_aluno *list_aluno,Node_aluno *node_aluno){
 
 
 int main(){
+    //cria estrutura para node e lista de aluno
     List_aluno *list_aluno=create_list_aluno();
     Node_aluno *node_aluno;
     
+    //inicia menu
     menu(list_aluno,node_aluno);
+
+    //dar free em todas as listas e nodes
     fechar_programa(list_aluno);
     free(node_aluno);
     return 0;

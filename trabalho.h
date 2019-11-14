@@ -209,6 +209,7 @@ void pop_aluno(List_aluno *list){
     list->size--;
 }
 
+//Free em toda a lista de alunos
 void fechar_programa(List_aluno *list){
     if(is_empty_aluno(list)){
         return;
@@ -478,6 +479,7 @@ Node_disciplina * search_disciplina(List_disciplina *list,char *procura){
         printf("Lista vazia!\n");
         return NULL;
     }
+
     Node_disciplina *aux=list->head;
     char *search;
     int contador=0,i=0,op;
@@ -520,6 +522,7 @@ void relatorio_geral(List_disciplina* list){
     Node_disciplina *node=list->head;
     int tr=0,ii=0,mi=0,mm=0,ms=0,ss=0,sr=0;
 
+    //loop que registra quantidade de cada menção
     while(node){
         if(strcmp(node->mencao,"TR")==0){
             tr++;
@@ -545,6 +548,7 @@ void relatorio_geral(List_disciplina* list){
         node=node->next;
     }
 
+    //printa relatório
     printf("Numero de disciplinas cursadas: %d.\n",list->size);
     printf("Numero de aprovações: %d.\n",mm+ms+ss);
     printf("Numero de reprovações: %d.\n",ii+mi+sr);
